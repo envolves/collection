@@ -16,7 +16,7 @@ export const memories: MemoryPage[] = [
     media: {
       id: 'p1',
       kind: 'photo',
-      src: asset('photos/WhatsApp Image 2026-09-28 at 11.16.24 PM.jpeg'),
+      src: asset('photos/friend-photo.jpeg'),
       alt: 'Friend memory photo',
       caption: 'One of those days worth keeping.',
       date: '2026',
@@ -48,7 +48,7 @@ export const memories: MemoryPage[] = [
     media: {
       id: 'v1',
       kind: 'video',
-      src: asset('videos/IMG_1500.MOV'),
+      src: asset('videos/friend-video.MOV'),
       poster: asset('posters/sample-video.svg'),
       alt: 'Friend memory video',
       caption: 'A memory in motion.',
