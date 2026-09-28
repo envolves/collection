@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+<rect width="1600" height="1000" fill="#34302f"/>
+<rect x="70" y="70" width="1460" height="860" rx="34" fill="none" stroke="#c8b28d" stroke-opacity=".38" stroke-width="4"/>
+<circle cx="800" cy="455" r="95" fill="#c8b28d" fill-opacity=".18"/>
+<path d="M775 395l115 60-115 60z" fill="#e4d7bd"/>
+<text x="800" y="710" fill="#d5c3a5" font-family="Arial, sans-serif" font-size="46" letter-spacing="9" text-anchor="middle">YOUR VIDEO</text>
+<text x="800" y="775" fill="#a9977c" font-family="Arial, sans-serif" font-size="24" letter-spacing="4" text-anchor="middle">REPLACE SAMPLE-VIDEO.MP4</text>
+</svg>
