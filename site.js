@@ -11,8 +11,8 @@
     {
       type: 'photo',
       media: {
-        src: mediaRoot + 'photos/sample-1.svg',
-        alt: 'Replace this sample with your first friend photo',
+        src: mediaRoot + 'photos/WhatsApp%20Image%202026-09-28%20at%2011.16.24%20PM.jpeg',
+        alt: 'Friend memory photo',
         caption: 'One of those days worth keeping.',
         date: '2026'
       }
@@ -35,9 +35,9 @@
     {
       type: 'video',
       media: {
-        src: mediaRoot + 'videos/sample-video.mp4',
+        src: mediaRoot + 'videos/IMG_1500.MOV',
         poster: mediaRoot + 'posters/sample-video.svg',
-        caption: 'Tap play to watch the memory.'
+        caption: 'A memory in motion.'
       }
     },
     {
