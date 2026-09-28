@@ -11,7 +11,7 @@
     {
       type: 'photo',
       media: {
-        src: mediaRoot + 'photos/WhatsApp%20Image%202026-09-28%20at%2011.16.24%20PM.jpeg',
+        src: mediaRoot + 'photos/friend-photo.jpeg',
         alt: 'Friend memory photo',
         caption: 'One of those days worth keeping.',
         date: '2026'
@@ -35,7 +35,7 @@
     {
       type: 'video',
       media: {
-        src: mediaRoot + 'videos/IMG_1500.MOV',
+        src: mediaRoot + 'videos/friend-video.MOV',
         poster: mediaRoot + 'posters/sample-video.svg',
         caption: 'A memory in motion.'
       }
