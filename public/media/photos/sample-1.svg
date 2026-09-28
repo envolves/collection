@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1600" viewBox="0 0 1200 1600">
+<rect width="1200" height="1600" fill="#77685e"/>
+<circle cx="600" cy="550" r="220" fill="#c6b69c" opacity="0.32"/>
+<path d="M260 1260c40-310 210-470 340-470s300 160 340 470" fill="#c6b69c" opacity="0.28"/>
+<rect x="110" y="110" width="980" height="1380" rx="28" fill="none" stroke="#c6b69c" stroke-opacity="0.36" stroke-width="4"/>
+<text x="600" y="1390" fill="#c6b69c" font-family="Arial, sans-serif" font-size="40" letter-spacing="8" text-anchor="middle">YOUR PHOTO 01</text>
+<text x="600" y="1448" fill="#c6b69c" opacity="0.72" font-family="Arial, sans-serif" font-size="22" letter-spacing="3" text-anchor="middle">REPLACE IN /PUBLIC/MEDIA/PHOTOS</text>
+</svg>
