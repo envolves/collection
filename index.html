@@ -1,14 +1,81 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#0c0c0f" />
-    <meta name="description" content="An interactive photo and video memory book." />
-    <title>Our Memories</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0e" />
+  <meta name="description" content="An interactive photo and video memory book." />
+  <title>Our Memories</title>
+  <link rel="stylesheet" href="./site.css" />
+  <script defer src="./site.js"></script>
+</head>
+<body>
+  <main class="app">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+
+    <section id="landing" class="landing" aria-label="Memory book cover">
+      <button id="openBook" class="closed-book" type="button" aria-label="Open the memory book">
+        <span class="page-block"></span>
+        <span class="back-cover"></span>
+        <span class="front-cover">
+          <span class="spine"></span>
+          <span class="cover-border"></span>
+          <span class="cover-copy">
+            <span class="cover-kicker">PHOTO & VIDEO BOOK</span>
+            <strong>Our Memories</strong>
+            <span class="cover-subtitle">A collection of moments</span>
+          </span>
+          <span class="cover-year">2026</span>
+        </span>
+      </button>
+      <p class="tap-hint">Tap the book to open</p>
+    </section>
+
+    <section id="reader" class="reader" hidden aria-label="Memory book">
+      <header class="topbar">
+        <button id="backToCover" class="pill" type="button">← Cover</button>
+        <div class="topbar-title">Our Memories</div>
+        <div class="top-actions">
+          <button id="soundToggle" class="round" type="button" aria-label="Toggle page sound">🔊</button>
+          <button id="fullscreenToggle" class="round" type="button" aria-label="Toggle fullscreen">⛶</button>
+        </div>
+      </header>
+
+      <div class="reading-area">
+        <button id="prevPage" class="nav desktop-nav" type="button" aria-label="Previous page">‹</button>
+
+        <div id="book" class="open-book">
+          <div class="book-shadow"></div>
+          <div id="leftPage" class="sheet left-sheet"></div>
+          <div id="rightPage" class="sheet right-sheet"></div>
+          <div id="flipLayer" class="flip-layer" aria-hidden="true"></div>
+          <div class="center-seam" aria-hidden="true"></div>
+        </div>
+
+        <button id="nextPage" class="nav desktop-nav" type="button" aria-label="Next page">›</button>
+      </div>
+
+      <footer class="footer">
+        <button id="prevMobile" class="mobile-nav" type="button">Previous</button>
+        <div class="progress">
+          <span id="pageLabel">1 / 7</span>
+          <div class="progress-track"><i id="progressBar"></i></div>
+        </div>
+        <button id="nextMobile" class="mobile-nav" type="button">Next</button>
+      </footer>
+    </section>
+
+    <div id="lightbox" class="lightbox" hidden>
+      <button id="lightboxBackdrop" class="lightbox-backdrop" type="button" aria-label="Close viewer"></button>
+      <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Close viewer">×</button>
+      <button id="lightboxPrev" class="lightbox-arrow lightbox-prev" type="button" aria-label="Previous image">‹</button>
+      <div class="lightbox-media">
+        <img id="lightboxImage" alt="" />
+        <div id="lightboxCaption" class="lightbox-caption"></div>
+      </div>
+      <button id="lightboxNext" class="lightbox-arrow lightbox-next" type="button" aria-label="Next image">›</button>
+    </div>
+  </main>
+</body>
 </html>
