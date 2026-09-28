@@ -493,3 +493,28 @@ button{font:inherit}
   opacity:0;
   transition:opacity .16s ease .22s;
 }
+
+
+/* Closed-book layer order fix */
+.back-cover{z-index:0}
+.page-block{z-index:1}
+.opening-page{
+  z-index:2;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .18s ease .18s,visibility 0s linear .38s;
+}
+.front-cover{
+  z-index:5;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.landing.opening .opening-page{
+  opacity:1;
+  visibility:visible;
+  transition:opacity .18s ease .12s;
+}
+.landing:not(.opening) .opening-page{
+  opacity:0;
+  visibility:hidden;
+}
