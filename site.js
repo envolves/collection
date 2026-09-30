@@ -35,9 +35,17 @@
     {
       type: 'video',
       media: {
-        src: mediaRoot + 'videos/friend-video.MOV',
+        src: mediaRoot + 'videos/video-1.mp4',
         poster: mediaRoot + 'posters/sample-video.svg',
         caption: 'A memory in motion.'
+      }
+    },
+    {
+      type: 'video',
+      media: {
+        src: mediaRoot + 'videos/video-2.mp4',
+        poster: mediaRoot + 'posters/sample-video.svg',
+        caption: 'Another memory in motion.'
       }
     },
     {
