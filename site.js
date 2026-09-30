@@ -3,40 +3,18 @@
 
   const pages = [
     {
-      type: 'title',
-      title: 'Our Memories',
-      subtitle: 'A collection of moments',
-      quote: 'The random days usually become the best memories.'
-    },
-    {
       type: 'photo',
       media: {
         src: mediaRoot + 'photos/friend-photo.jpeg',
-        alt: 'Friend memory photo',
-        caption: 'One of those days worth keeping.',
+        alt: 'Main memory photo',
+        caption: 'A memory worth keeping.',
         date: '2026'
       }
-    },
-    {
-      type: 'two',
-      media: [
-        {
-          src: mediaRoot + 'photos/sample-2.svg',
-          alt: 'Replace with a portrait or candid photo',
-          caption: 'Random picture. Permanent memory.'
-        },
-        {
-          src: mediaRoot + 'photos/sample-3.svg',
-          alt: 'Replace with another friend photo',
-          caption: 'No context needed.'
-        }
-      ]
     },
     {
       type: 'video',
       media: {
         src: mediaRoot + 'videos/video-1.mp4',
-        poster: mediaRoot + 'posters/sample-video.svg',
         caption: 'A memory in motion.'
       }
     },
@@ -44,39 +22,12 @@
       type: 'video',
       media: {
         src: mediaRoot + 'videos/video-2.mp4',
-        poster: mediaRoot + 'posters/sample-video.svg',
         caption: 'Another memory in motion.'
       }
-    },
-    {
-      type: 'collage',
-      media: [
-        { src: mediaRoot + 'photos/sample-4.svg', alt: 'Replace with your photo' },
-        { src: mediaRoot + 'photos/sample-5.svg', alt: 'Replace with your photo' },
-        { src: mediaRoot + 'photos/sample-6.svg', alt: 'Replace with your photo' }
-      ]
-    },
-    {
-      type: 'photoText',
-      text: 'That day was actually crazy 😂',
-      media: {
-        src: mediaRoot + 'photos/sample-7.svg',
-        alt: 'Replace with a funny or memorable photo',
-        date: '2026'
-      }
-    },
-    {
-      type: 'final',
-      title: 'More memories to come…',
-      message: 'This book is only getting started.'
     }
   ];
 
-  const gallery = [];
-  pages.forEach((page) => {
-    if (page.type === 'photo' || page.type === 'photoText') gallery.push(page.media);
-    if (page.type === 'two' || page.type === 'collage') gallery.push(...page.media);
-  });
+  const gallery = [pages[0].media];
 
   const $ = (selector) => document.querySelector(selector);
   const landing = $('#landing');
@@ -107,8 +58,8 @@
   let cursor = 0;
   let turning = false;
   let soundOn = true;
-  let lightboxIndex = 0;
   let touchStartX = null;
+  let lightboxIndex = 0;
 
   function mobile() {
     return window.matchMedia('(max-width: 760px)').matches;
@@ -122,37 +73,29 @@
       .replaceAll('"', '&quot;');
   }
 
-  function galleryIndex(src) {
-    return gallery.findIndex((item) => item.src === src);
-  }
-
-  function photoButton(media, extraClass = '') {
-    const index = galleryIndex(media.src);
+  function photoButton(media) {
     return `
-      <button type="button" class="${extraClass}" data-photo-index="${index}" aria-label="Open image">
-        <img src="${safe(media.src)}" alt="${safe(media.alt || 'Memory photo')}" loading="lazy" decoding="async" />
+      <button type="button" data-photo-index="0" aria-label="Open main photo">
+        <img src="${safe(media.src)}" alt="${safe(media.alt)}" loading="eager" decoding="async" />
       </button>
     `;
   }
 
+  function videoMarkup(media) {
+    return `
+      <div class="video-frame">
+        <video class="memory-video" controls playsinline preload="auto">
+          <source src="${safe(media.src)}" type="video/mp4" />
+          Your browser cannot play this video.
+        </video>
+      </div>
+    `;
+  }
+
   function pageHTML(page, pageNumber) {
-    if (!page) {
-      return '<div class="page"><div class="blank-page">♡</div></div>';
-    }
+    if (!page) return '';
 
     let body = '';
-
-    if (page.type === 'title') {
-      body = `
-        <div class="title-page">
-          <span class="eyebrow">MEMORY BOOK</span>
-          <h1>${safe(page.title)}</h1>
-          <p class="subtitle">${safe(page.subtitle)}</p>
-          <div class="rule"></div>
-          <blockquote class="quote">${safe(page.quote)}</blockquote>
-        </div>
-      `;
-    }
 
     if (page.type === 'photo') {
       body = `
@@ -166,58 +109,12 @@
       `;
     }
 
-    if (page.type === 'two') {
-      body = `
-        <div class="two-photo">
-          ${page.media.map((item) => `
-            <div class="photo-cell">
-              <div class="frame">${photoButton(item)}</div>
-              <p>${safe(item.caption)}</p>
-            </div>
-          `).join('')}
-        </div>
-      `;
-    }
-
-    if (page.type === 'collage') {
-      body = `
-        <div class="collage">
-          ${photoButton(page.media[0], 'big')}
-          ${photoButton(page.media[1], 'small-a')}
-          ${photoButton(page.media[2], 'small-b')}
-        </div>
-      `;
-    }
-
     if (page.type === 'video') {
       body = `
         <div class="video-page">
-          <span class="eyebrow">A MOVING MEMORY</span>
-          <div class="video-frame">
-            <video src="${safe(page.media.src)}" poster="${safe(page.media.poster)}" controls playsinline preload="metadata"></video>
-          </div>
+          <span class="eyebrow">VIDEO MEMORY</span>
+          ${videoMarkup(page.media)}
           <p>${safe(page.media.caption)}</p>
-        </div>
-      `;
-    }
-
-    if (page.type === 'photoText') {
-      body = `
-        <div class="photo-text">
-          <div class="photo-frame">${photoButton(page.media)}</div>
-          <p class="hand">${safe(page.text)}</p>
-          <span class="tiny-date">${safe(page.media.date)}</span>
-        </div>
-      `;
-    }
-
-    if (page.type === 'final') {
-      body = `
-        <div class="final-page">
-          <span class="eyebrow">TO BE CONTINUED</span>
-          <h2>${safe(page.title)}</h2>
-          <p>${safe(page.message)}</p>
-          <span class="final-heart">♡</span>
         </div>
       `;
     }
@@ -230,12 +127,20 @@
     `;
   }
 
+  function hydrateVideos() {
+    document.querySelectorAll('video.memory-video').forEach((video) => {
+      try {
+        video.load();
+      } catch (_) {}
+    });
+  }
+
   function normalizeCursor() {
     if (mobile()) {
       cursor = Math.max(0, Math.min(cursor, pages.length - 1));
     } else {
-      cursor = Math.max(0, Math.min(cursor, Math.max(0, pages.length - 2)));
-      cursor = Math.floor(cursor / 2) * 2;
+      cursor = Math.max(0, Math.min(cursor, pages.length - 1));
+      if (cursor === 1) cursor = 0;
     }
   }
 
@@ -243,25 +148,44 @@
     normalizeCursor();
 
     if (mobile()) {
-      leftPage.innerHTML = '';
+      book.classList.add('single-page');
+      leftPage.hidden = true;
+      rightPage.hidden = false;
       rightPage.innerHTML = pageHTML(pages[cursor], cursor + 1);
+
       pageLabel.textContent = `${cursor + 1} / ${pages.length}`;
       progressBar.style.width = `${((cursor + 1) / pages.length) * 100}%`;
+
       const atStart = cursor === 0;
-      const atEnd = cursor >= pages.length - 1;
+      const atEnd = cursor === pages.length - 1;
       prevPage.disabled = prevMobile.disabled = atStart;
       nextPage.disabled = nextMobile.disabled = atEnd;
+    } else if (cursor === pages.length - 1) {
+      book.classList.add('single-page');
+      leftPage.hidden = true;
+      rightPage.hidden = false;
+      rightPage.innerHTML = pageHTML(pages[cursor], cursor + 1);
+
+      pageLabel.textContent = `${cursor + 1} / ${pages.length}`;
+      progressBar.style.width = '100%';
+
+      prevPage.disabled = prevMobile.disabled = false;
+      nextPage.disabled = nextMobile.disabled = true;
     } else {
-      leftPage.innerHTML = pageHTML(pages[cursor], cursor + 1);
-      rightPage.innerHTML = pageHTML(pages[cursor + 1], Math.min(cursor + 2, pages.length));
-      const end = Math.min(cursor + 2, pages.length);
-      pageLabel.textContent = `${cursor + 1}–${end} / ${pages.length}`;
-      progressBar.style.width = `${(end / pages.length) * 100}%`;
-      const atStart = cursor === 0;
-      const atEnd = cursor + 2 >= pages.length;
-      prevPage.disabled = prevMobile.disabled = atStart;
-      nextPage.disabled = nextMobile.disabled = atEnd;
+      book.classList.remove('single-page');
+      leftPage.hidden = false;
+      rightPage.hidden = false;
+      leftPage.innerHTML = pageHTML(pages[0], 1);
+      rightPage.innerHTML = pageHTML(pages[1], 2);
+
+      pageLabel.textContent = `1–2 / ${pages.length}`;
+      progressBar.style.width = `${(2 / pages.length) * 100}%`;
+
+      prevPage.disabled = prevMobile.disabled = true;
+      nextPage.disabled = nextMobile.disabled = false;
     }
+
+    hydrateVideos();
   }
 
   function pageTurnSound() {
@@ -274,25 +198,29 @@
   function turn(direction) {
     if (turning) return;
 
-    const step = mobile() ? 1 : 2;
-    const target = cursor + (direction === 'next' ? step : -step);
+    const target = mobile()
+      ? cursor + (direction === 'next' ? 1 : -1)
+      : direction === 'next'
+        ? 2
+        : 0;
 
-    if (target < 0 || target >= pages.length) return;
+    if (target < 0 || target >= pages.length || target === cursor) return;
 
     turning = true;
+    document.querySelectorAll('video').forEach((video) => video.pause());
     pageTurnSound();
 
     const sourcePage = mobile()
       ? pages[cursor]
       : direction === 'next'
-        ? pages[cursor + 1]
-        : pages[cursor];
+        ? pages[1]
+        : pages[2];
 
     const sourceNumber = mobile()
       ? cursor + 1
       : direction === 'next'
-        ? Math.min(cursor + 2, pages.length)
-        : cursor + 1;
+        ? 2
+        : 3;
 
     flipLayer.className = `flip-layer active ${direction}`;
     flipLayer.innerHTML = `<div class="flip-face">${pageHTML(sourcePage, sourceNumber)}</div>`;
@@ -312,20 +240,23 @@
 
   function openReader() {
     if (landing.classList.contains('opening')) return;
+
     landing.classList.add('opening');
     openBook.disabled = true;
 
     window.setTimeout(() => {
       landing.hidden = true;
       reader.hidden = false;
+      cursor = 0;
       render();
       requestAnimationFrame(() => reader.classList.add('visible'));
-    }, 920);
+    }, 760);
   }
 
   function returnToCover() {
     document.querySelectorAll('video').forEach((video) => video.pause());
     reader.classList.remove('visible');
+
     window.setTimeout(() => {
       reader.hidden = true;
       landing.hidden = false;
@@ -338,27 +269,18 @@
   function openLightbox(index) {
     if (index < 0 || index >= gallery.length) return;
     lightboxIndex = index;
-    updateLightbox();
-    lightbox.hidden = false;
-    document.body.style.overflow = 'hidden';
-  }
-
-  function updateLightbox() {
     const item = gallery[lightboxIndex];
     lightboxImage.src = item.src;
     lightboxImage.alt = item.alt || 'Memory photo';
     lightboxCaption.textContent = [item.caption, item.date].filter(Boolean).join(' · ');
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
     lightbox.hidden = true;
     lightboxImage.removeAttribute('src');
     document.body.style.overflow = '';
-  }
-
-  function moveLightbox(delta) {
-    lightboxIndex = (lightboxIndex + delta + gallery.length) % gallery.length;
-    updateLightbox();
   }
 
   openBook.addEventListener('click', openReader);
@@ -371,7 +293,6 @@
   soundToggle.addEventListener('click', () => {
     soundOn = !soundOn;
     soundToggle.textContent = soundOn ? '🔊' : '🔇';
-    soundToggle.setAttribute('aria-label', soundOn ? 'Mute page sound' : 'Enable page sound');
   });
 
   fullscreenToggle.addEventListener('click', async () => {
@@ -387,22 +308,20 @@
   document.addEventListener('click', (event) => {
     const button = event.target.closest('[data-photo-index]');
     if (!button) return;
-    event.preventDefault();
     openLightbox(Number(button.dataset.photoIndex));
   });
 
   lightboxClose.addEventListener('click', closeLightbox);
   lightboxBackdrop.addEventListener('click', closeLightbox);
-  lightboxPrev.addEventListener('click', () => moveLightbox(-1));
-  lightboxNext.addEventListener('click', () => moveLightbox(1));
+  lightboxPrev.hidden = true;
+  lightboxNext.hidden = true;
 
   document.addEventListener('keydown', (event) => {
     if (!lightbox.hidden) {
       if (event.key === 'Escape') closeLightbox();
-      if (event.key === 'ArrowLeft') moveLightbox(-1);
-      if (event.key === 'ArrowRight') moveLightbox(1);
       return;
     }
+
     if (reader.hidden) return;
     if (event.key === 'ArrowLeft') turn('prev');
     if (event.key === 'ArrowRight') turn('next');
@@ -410,6 +329,7 @@
   });
 
   book.addEventListener('pointerdown', (event) => {
+    if (event.target.closest('video,button')) return;
     touchStartX = event.clientX;
   });
 
