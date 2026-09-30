@@ -246,7 +246,9 @@
 
     window.setTimeout(() => {
       landing.hidden = true;
+      landing.style.display = 'none';
       reader.hidden = false;
+      reader.style.display = 'grid';
       cursor = 0;
       render();
       requestAnimationFrame(() => reader.classList.add('visible'));
@@ -259,7 +261,9 @@
 
     window.setTimeout(() => {
       reader.hidden = true;
+      reader.style.display = 'none';
       landing.hidden = false;
+      landing.style.display = 'grid';
       landing.classList.remove('opening');
       openBook.disabled = false;
       cursor = 0;
