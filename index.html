@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#0b0b0e" />
   <meta name="description" content="An interactive photo and video memory book." />
   <title>Our Memories</title>
-  <link rel="stylesheet" href="./site.css" />
-  <script defer src="./site.js"></script>
+  <link rel="stylesheet" href="./site.css?v=20260930-3" />
+  <script defer src="./site.js?v=20260930-3"></script>
 </head>
 <body>
   <main class="app">
@@ -18,9 +18,6 @@
       <button id="openBook" class="closed-book" type="button" aria-label="Open the memory book">
         <span class="page-block"></span>
         <span class="back-cover"></span>
-        <span class="opening-page" aria-hidden="true">
-          <img src="./public/media/photos/friend-photo.jpeg" alt="" />
-        </span>
         <span class="front-cover">
           <span class="spine"></span>
           <span class="cover-border"></span>
@@ -62,7 +59,7 @@
       <footer class="footer">
         <button id="prevMobile" class="mobile-nav" type="button">Previous</button>
         <div class="progress">
-          <span id="pageLabel">1 / 7</span>
+          <span id="pageLabel">1–2 / 3</span>
           <div class="progress-track"><i id="progressBar"></i></div>
         </div>
         <button id="nextMobile" class="mobile-nav" type="button">Next</button>
