@@ -604,3 +604,46 @@ button{font:inherit}
     object-fit:contain;
   }
 }
+
+
+/* Hard visibility rules: only one screen may exist at a time */
+.landing[hidden],
+.reader[hidden]{
+  display:none !important;
+}
+body{
+  height:100dvh;
+  overflow:hidden;
+}
+.app{
+  height:100dvh;
+  min-height:100dvh;
+  overflow:hidden;
+}
+.landing,
+.reader{
+  height:100dvh;
+  min-height:100dvh;
+  overflow:hidden;
+}
+
+/* Closed cover must stay above page edges until opening begins */
+.closed-book{
+  isolation:isolate;
+}
+.landing:not(.opening) .front-cover{
+  display:block;
+  opacity:1;
+  visibility:visible;
+  z-index:50;
+  transform:rotateY(0deg) translateX(0);
+}
+.landing:not(.opening) .page-block{
+  z-index:1;
+}
+.landing:not(.opening) .back-cover{
+  z-index:0;
+}
+.landing.opening .front-cover{
+  z-index:50;
+}
