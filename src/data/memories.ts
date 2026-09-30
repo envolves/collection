@@ -48,10 +48,22 @@ export const memories: MemoryPage[] = [
     media: {
       id: 'v1',
       kind: 'video',
-      src: asset('videos/friend-video.MOV'),
+      src: asset('videos/video-1.mp4'),
       poster: asset('posters/sample-video.svg'),
-      alt: 'Friend memory video',
+      alt: 'Friend memory video one',
       caption: 'A memory in motion.',
+    },
+  },
+  {
+    id: 'video-two',
+    type: 'video',
+    media: {
+      id: 'v2',
+      kind: 'video',
+      src: asset('videos/video-2.mp4'),
+      poster: asset('posters/sample-video.svg'),
+      alt: 'Friend memory video two',
+      caption: 'Another memory in motion.',
     },
   },
   {
